@@ -28,28 +28,15 @@ body {
   align-items: center;
   justify-content: center;
   overflow-x: hidden;
-  position: relative;
 
-  /* Background image from Background.png */
-  background-color: #2d3436;
-
-  color: var(--text);
-}
-
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('Background.png');
+  /* Background image from Background.png - DIRECT */
+  background: url('Background.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  z-index: 0;
+  background-attachment: fixed;
+
+  color: var(--text);
 }
 
 @media (prefers-reduced-motion: reduce) {
