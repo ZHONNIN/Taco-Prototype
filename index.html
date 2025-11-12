@@ -41,13 +41,15 @@ body::before {
   position: fixed;
   top: 0;
   left: 0;
+  right: 0;
+  bottom: 0;
   width: 100%;
   height: 100%;
   background-image: url('Background.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  z-index: -1;
+  z-index: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -63,7 +65,7 @@ body::before {
   padding: 2rem;
   text-align: center;
   position: relative;
-  z-index: 1;
+  z-index: 10;
 }
 
 section {
@@ -270,8 +272,6 @@ button:active {
   <section id="intro" class="active">
     <h1>The Taste of Choice</h1>
     <h2>Every flavor tells a story.</h2>
-    <!-- Test image - DELETE THIS if Background shows -->
-    <img src="Background.png" style="max-width: 300px; border: 3px solid red; display: block; margin: 1rem auto;" alt="Test - if you see this, image loads">
     <button id="start-btn">Start Your Taco Stand</button>
   </section>
 
