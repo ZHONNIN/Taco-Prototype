@@ -17,19 +17,24 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-
-  /* Background image from Background.png */
-  background: url('./Background.png') no-repeat center center fixed;
-  background-size: cover;
-  background-color: #2d3436;
-
-  color: var(--text);
-  transition: color 0.8s ease;
   min-height: 100vh;
+  margin: 0;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow-x: hidden;
+
+  /* Background image from Background.png */
+  background-color: #2d3436;
+  background-image: url(Background.png);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  color: var(--text);
+  transition: color 0.8s ease;
 }
 
 @media (prefers-reduced-motion: reduce) {
