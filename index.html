@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Taste of Choice</title>
+<style>
+:root {
+  --night-base-bg: linear-gradient(135deg, #1a1a2e 0%, #0f0f1e 100%);
+  --night-base-text: #e0e0e0;
+
+  --comm-warm-bg: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  --comm-warm-text: #fff;
+
+  --comm-distance-bg: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+  --comm-distance-text: #e2e8f0;
+
+  --comm-humor-bg: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  --comm-humor-text: #1f2937;
+
+  --ingr-traditional-bg: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+  --ingr-traditional-text: #fef3c7;
+
+  --ingr-spicy-bg: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+  --ingr-spicy-text: #fee2e2;
+
+  --ingr-experimental-bg: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+  --ingr-experimental-text: #fae8ff;
+
+  --pres-handmade-bg: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+  --pres-handmade-text: #ffedd5;
+
+  --pres-paper-bg: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+  --pres-paper-text: #d1d5db;
+
+  --pres-garnish-bg: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
+  --pres-garnish-text: #fce7f3;
+
+  --bg: var(--night-base-bg);
+  --text: var(--night-base-text);
+}
+
+[data-tone="night-base"] {
+  --bg: var(--night-base-bg);
+  --text: var(--night-base-text);
+}
+
+[data-tone="comm-warm"] {
+  --bg: var(--comm-warm-bg);
+  --text: var(--comm-warm-text);
+}
+
+[data-tone="comm-distance"] {
+  --bg: var(--comm-distance-bg);
+  --text: var(--comm-distance-text);
+}
+
+[data-tone="comm-humor"] {
+  --bg: var(--comm-humor-bg);
+  --text: var(--comm-humor-text);
+}
+
+[data-tone="ingr-traditional"] {
+  --bg: var(--ingr-traditional-bg);
+  --text: var(--ingr-traditional-text);
+}
+
+[data-tone="ingr-spicy"] {
+  --bg: var(--ingr-spicy-bg);
+  --text: var(--ingr-spicy-text);
+}
+
+[data-tone="ingr-experimental"] {
+  --bg: var(--ingr-experimental-bg);
+  --text: var(--ingr-experimental-text);
+}
+
+[data-tone="pres-handmade"] {
+  --bg: var(--pres-handmade-bg);
+  --text: var(--pres-handmade-text);
+}
+
+[data-tone="pres-paper"] {
+  --bg: var(--pres-paper-bg);
+  --text: var(--pres-paper-text);
+}
+
+[data-tone="pres-garnish"] {
+  --bg: var(--pres-garnish-bg);
+  --text: var(--pres-garnish-text);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.8s ease, color 0.8s ease;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body, .fade-in, .fade-out, button {
+    transition-duration: 0.1s !important;
+    animation-duration: 0.1s !important;
+  }
+}
+
+.container {
+  max-width: 1200px;
+  width: 100%;
+  padding: 2rem;
+  text-align: center;
+}
+
+section {
+  display: none;
+  opacity: 0;
+}
+
+section.active {
+  display: block;
+  animation: fadeIn 0.8s forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+.fade-out {
+  animation: fadeOut 0.6s forwards;
+}
+
+@keyframes fadeOut {
+  to { opacity: 0; }
+}
+
+h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+  border-radius: 16px;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-bottom: 3rem;
+  opacity: 0.9;
+}
+
+button {
+  background: rgba(255, 255, 255, 0.2);
+  color: inherit;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  padding: 0.875rem 2rem;
+  font-size: 1.125rem;
+  border-radius: 12px;
+  cursor: pointer;
+  min-height: 44px;
+  min-width: 44px;
+  transition: all 0.25s ease;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+}
+
+button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.8);
+  transform: translateY(-2px);
+}
+
+button:focus {
+  outline: 3px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 3px;
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+.customer-label {
+  font-size: 0.875rem;
+  opacity: 0.7;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.portrait {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 2rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+}
+
+.dialog {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 16px;
+  padding: 2rem;
+  margin: 0 auto 2rem;
+  max-width: 700px;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dialog-text {
+  font-size: 1.25rem;
+  line-height: 1.6;
+}
+
+.choices {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.choices button {
+  flex: 1 1 200px;
+  max-width: 280px;
+}
+
+.round-label {
+  font-size: 0.875rem;
+  opacity: 0.6;
+  margin-top: 1rem;
+}
+
+.next-btn {
+  margin-top: 1.5rem;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.outcome-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.outcome-content h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.outcome-content p {
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.9;
+}
+
+.taco-icon {
+  margin: 2rem auto;
+  width: 100px;
+  height: 100px;
+}
+
+.choices-summary {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 16px;
+  padding: 2rem;
+  margin: 2rem auto;
+  text-align: left;
+  max-width: 700px;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.choices-summary h3 {
+  margin-bottom: 0.75rem;
+  font-size: 1.25rem;
+}
+
+.choices-summary ul {
+  list-style: none;
+  margin-bottom: 1.5rem;
+}
+
+.choices-summary li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 1rem;
+}
+
+.choices-summary li:last-child {
+  border-bottom: none;
+}
+
+.choice-label {
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+.hidden {
+  display: none !important;
+}
+</style>
+</head>
+<body data-tone="night-base">
+
+<div class="container">
+  <section id="intro" class="active">
+    <h1>The Taste of Choice</h1>
+    <h2>Every flavor tells a story.</h2>
+    <button id="start-btn">Start Your Taco Stand</button>
+  </section>
+
+  <section id="customers">
+    <div class="customer-label" id="customer-counter"></div>
+    <div class="portrait" id="portrait">👤</div>
+    <div class="dialog" id="dialog">
+      <div class="dialog-text" id="dialog-text"></div>
+    </div>
+    <div class="choices" id="choices"></div>
+    <button class="next-btn hidden" id="next-btn">Next</button>
+    <div class="round-label" id="round-label"></div>
+  </section>
+
+  <section id="outcome">
+    <div class="outcome-content">
+      <h2>You've served three different souls tonight.</h2>
+      <p>Every choice changed a mood.</p>
+      <p>Every flavor told a story.</p>
+
+      <svg class="taco-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g filter="url(#glow)">
+          <path d="M50 20 C30 20 20 35 20 50 C20 65 30 80 50 80 C70 80 80 65 80 50 C80 35 70 20 50 20Z" fill="#f59e0b" opacity="0.8"/>
+          <path d="M35 45 Q50 55 65 45" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+          <circle cx="40" cy="40" r="3" fill="#dc2626" opacity="0.7"/>
+          <circle cx="60" cy="40" r="3" fill="#10b981" opacity="0.7"/>
+          <circle cx="50" cy="48" r="2" fill="#fbbf24" opacity="0.7"/>
+        </g>
+        <defs>
+          <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feFlood flood-color="#fbbf24" flood-opacity="0.5"/>
+            <feComposite in2="blur" operator="in"/>
+            <feMerge>
+              <feMergeNode/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+      </svg>
+
+      <div class="choices-summary" id="choices-summary"></div>
+
+      <button id="restart-btn">Restart the Night</button>
+    </div>
+  </section>
+</div>
+
+<audio id="ambient" loop muted>
+  <source src="data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEAQB8AAEAfAAABAAgAAABmYWN0BAAAAAAAAABkYXRhAAAAAA==" type="audio/wav">
+</audio>
+<audio id="ui-tick" muted>
+  <source src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YQAAAAA=" type="audio/wav">
+</audio>
+
+<script>
+const CUSTOMERS = [
+  {
+    id: 0,
+    name: 'Overworked Office Worker',
+    emoji: '💼',
+    intro: 'A tired man in a suit walks up to your stand. He says: "It\'s been a long day… maybe food will help me breathe again."',
+    reactions: {
+      communication: {
+        warm: 'Thanks… feels nice to be noticed after a long day.',
+        respectful: 'I appreciate the quiet. No small talk for once.',
+        humor: 'Haha, didn\'t expect to laugh tonight.'
+      },
+      ingredients: {
+        traditional: 'This is comfort. Like home after overtime.',
+        spicy: 'Whoa! That actually woke me up.',
+        experimental: 'Pineapple? That\'s… surprisingly good.'
+      },
+      presentation: {
+        handmade: 'You even plated it nicely. That\'s care.',
+        paper: 'Perfect. I\'ll eat this while heading back.',
+        garnish: 'Didn\'t expect street food to look this cheerful.'
+      }
+    }
+  },
+  {
+    id: 1,
+    name: 'Immigrant Woman',
+    emoji: '🧳',
+    intro: 'A woman carrying a small suitcase stops by. She says: "Your food smells familiar… but the city feels so new."',
+    reactions: {
+      communication: {
+        warm: 'You make me feel like I belong here.',
+        respectful: 'Polite and kind — like a safe harbor.',
+        humor: 'Haha, maybe laughter sounds the same in every language.'
+      },
+      ingredients: {
+        traditional: 'This taste… it brings back memories of home.',
+        spicy: 'Strong and fiery — like starting a new life.',
+        experimental: 'It\'s like two places meeting in one bite.'
+      },
+      presentation: {
+        handmade: 'It feels personal — like something made for me.',
+        paper: 'I\'ll take it on my walk — my journey continues.',
+        garnish: 'So vibrant… like the markets I miss.'
+      }
+    }
+  },
+  {
+    id: 2,
+    name: 'Art Student',
+    emoji: '🎨',
+    intro: 'A quiet young artist with paint on her hands appears. She says: "I\'m searching for inspiration… maybe flavor can spark it."',
+    reactions: {
+      communication: {
+        warm: 'Your energy feels… like a sunrise after an all-nighter.',
+        respectful: 'I like how you give space. Inspiration needs silence.',
+        humor: 'Haha, you\'re playful — that\'s rare in serious artists.'
+      },
+      ingredients: {
+        traditional: 'Simple. Honest. Like a clean canvas.',
+        spicy: 'Bold! That\'s passion in edible form.',
+        experimental: 'Fusion… chaos… I love it.'
+      },
+      presentation: {
+        handmade: 'It\'s like edible art.',
+        paper: 'Casual, fleeting — like street sketches.',
+        garnish: 'Color! You understand aesthetics!'
+      }
+    }
+  }
+];
+
+const ROUNDS = [
+  {
+    key: 'communication',
+    label: 'Communication Style',
+    choices: [
+      { key: 'warm', label: 'Warm welcome', tone: 'comm-warm' },
+      { key: 'respectful', label: 'Respectful distance', tone: 'comm-distance' },
+      { key: 'humor', label: 'Light humor', tone: 'comm-humor' }
+    ]
+  },
+  {
+    key: 'ingredients',
+    label: 'Ingredients',
+    choices: [
+      { key: 'traditional', label: 'Traditional taco (soft beef & onion)', tone: 'ingr-traditional' },
+      { key: 'spicy', label: 'Spicy taco (extra chili)', tone: 'ingr-spicy' },
+      { key: 'experimental', label: 'Experimental taco (fusion with pineapple)', tone: 'ingr-experimental' }
+    ]
+  },
+  {
+    key: 'presentation',
+    label: 'Presentation',
+    choices: [
+      { key: 'handmade', label: 'Handmade plate', tone: 'pres-handmade' },
+      { key: 'paper', label: 'Paper wrap', tone: 'pres-paper' },
+      { key: 'garnish', label: 'Bright colored garnish', tone: 'pres-garnish' }
+    ]
+  }
+];
+
+let state = {
+  scene: 'intro',
+  customerIndex: 0,
+  roundIndex: 0,
+  choicesLog: []
+};
+
+const sections = {
+  intro: document.getElementById('intro'),
+  customers: document.getElementById('customers'),
+  outcome: document.getElementById('outcome')
+};
+
+const startBtn = document.getElementById('start-btn');
+const customerCounter = document.getElementById('customer-counter');
+const portrait = document.getElementById('portrait');
+const dialog = document.getElementById('dialog');
+const dialogText = document.getElementById('dialog-text');
+const choicesContainer = document.getElementById('choices');
+const nextBtn = document.getElementById('next-btn');
+const roundLabel = document.getElementById('round-label');
+const choicesSummary = document.getElementById('choices-summary');
+const restartBtn = document.getElementById('restart-btn');
+
+const ambientAudio = document.getElementById('ambient');
+const tickAudio = document.getElementById('ui-tick');
+
+let typingInterval = null;
+let isTyping = false;
+
+function typeText(text, callback) {
+  dialogText.textContent = '';
+  isTyping = true;
+  let index = 0;
+
+  dialog.dataset.fullText = text;
+
+  const type = () => {
+    if (index < text.length) {
+      dialogText.textContent += text[index];
+      index++;
+    } else {
+      clearInterval(typingInterval);
+      isTyping = false;
+      if (callback) callback();
+    }
+  };
+
+  typingInterval = setInterval(type, 30);
+}
+
+function finishTyping() {
+  if (isTyping && typingInterval) {
+    clearInterval(typingInterval);
+    dialogText.textContent = dialog.dataset.fullText || dialogText.textContent;
+    isTyping = false;
+  }
+}
+
+function playAmbient() {
+  try {
+    ambientAudio.muted = false;
+    ambientAudio.play().catch(() => {});
+  } catch (e) {}
+}
+
+function playTick() {
+  try {
+    tickAudio.currentTime = 0;
+    tickAudio.muted = false;
+    tickAudio.play().catch(() => {});
+  } catch (e) {}
+}
+
+function setTone(tone) {
+  document.body.setAttribute('data-tone', tone);
+}
+
+function switchScene(newScene) {
+  const currentSection = sections[state.scene];
+  const newSection = sections[newScene];
+
+  if (currentSection) {
+    currentSection.classList.add('fade-out');
+    setTimeout(() => {
+      currentSection.classList.remove('active', 'fade-out');
+    }, 600);
+  }
+
+  setTimeout(() => {
+    state.scene = newScene;
+    newSection.classList.add('active');
+
+    if (newScene === 'customers') {
+      renderCustomer();
+    } else if (newScene === 'outcome') {
+      renderOutcome();
+    }
+  }, 600);
+}
+
+function renderCustomer() {
+  const customer = CUSTOMERS[state.customerIndex];
+  const round = ROUNDS[state.roundIndex];
+
+  customerCounter.textContent = `Customer ${state.customerIndex + 1}/3`;
+  portrait.textContent = customer.emoji;
+  roundLabel.textContent = `Round ${state.roundIndex + 1} of 3: ${round.label}`;
+
+  nextBtn.classList.add('hidden');
+  choicesContainer.innerHTML = '';
+
+  const customerChoices = state.choicesLog.filter(c => c.customerId === customer.id);
+  const textToShow = customerChoices.length === 0 ? customer.intro : `Choose: ${round.label}`;
+
+  typeText(textToShow, () => {
+    renderChoices();
+  });
+}
+
+function renderChoices() {
+  const round = ROUNDS[state.roundIndex];
+  choicesContainer.innerHTML = '';
+
+  round.choices.forEach(choice => {
+    const btn = document.createElement('button');
+    btn.textContent = choice.label;
+    btn.addEventListener('click', () => handleChoice(choice));
+    btn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleChoice(choice);
+      }
+    });
+    choicesContainer.appendChild(btn);
+  });
+}
+
+function handleChoice(choice) {
+  playTick();
+
+  const customer = CUSTOMERS[state.customerIndex];
+  const round = ROUNDS[state.roundIndex];
+
+  state.choicesLog.push({
+    customerId: customer.id,
+    customerName: customer.name,
+    round: round.key,
+    roundLabel: round.label,
+    choiceKey: choice.key,
+    choiceLabel: choice.label
+  });
+
+  choicesContainer.innerHTML = '';
+
+  setTone(choice.tone);
+
+  const reaction = customer.reactions[round.key][choice.key];
+
+  typeText(reaction, () => {
+    setTimeout(() => {
+      nextBtn.classList.remove('hidden');
+    }, 1400);
+  });
+}
+
+nextBtn.addEventListener('click', handleNext);
+nextBtn.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    handleNext();
+  }
+});
+
+function handleNext() {
+  nextBtn.classList.add('hidden');
+
+  if (state.roundIndex < 2) {
+    state.roundIndex++;
+    renderCustomer();
+  } else if (state.customerIndex < 2) {
+    state.customerIndex++;
+    state.roundIndex = 0;
+    setTone('night-base');
+    renderCustomer();
+  } else {
+    switchScene('outcome');
+  }
+}
+
+function renderOutcome() {
+  setTone('night-base');
+
+  let html = '';
+
+  CUSTOMERS.forEach((customer) => {
+    const customerChoices = state.choicesLog.filter(c => c.customerId === customer.id);
+
+    html += `<h3>${customer.emoji} ${customer.name}</h3><ul>`;
+
+    customerChoices.forEach(choice => {
+      html += `<li><span class="choice-label">${choice.roundLabel}:</span>${choice.choiceLabel}</li>`;
+    });
+
+    html += `</ul>`;
+  });
+
+  choicesSummary.innerHTML = html;
+}
+
+restartBtn.addEventListener('click', restart);
+restartBtn.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    restart();
+  }
+});
+
+function restart() {
+  state = {
+    scene: 'outcome',
+    customerIndex: 0,
+    roundIndex: 0,
+    choicesLog: []
+  };
+  setTone('night-base');
+  switchScene('intro');
+}
+
+startBtn.addEventListener('click', startGame);
+startBtn.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    startGame();
+  }
+});
+
+function startGame() {
+  state = {
+    scene: 'intro',
+    customerIndex: 0,
+    roundIndex: 0,
+    choicesLog: []
+  };
+
+  playAmbient();
+  switchScene('customers');
+}
+
+dialog.addEventListener('click', finishTyping);
+</script>
+
+</body>
+</html>
