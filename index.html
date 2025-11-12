@@ -15,6 +15,10 @@
   box-sizing: border-box;
 }
 
+html {
+  min-height: 100%;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
   min-height: 100vh;
@@ -26,15 +30,9 @@ body {
   overflow-x: hidden;
 
   /* Background image from Background.png */
-  background-color: #2d3436;
-  background-image: url(Background.png);
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  background: #2d3436 url('Background.png') no-repeat center center / cover;
 
   color: var(--text);
-  transition: color 0.8s ease;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -91,9 +89,9 @@ h2 {
 }
 
 button {
-  background: rgba(255, 255, 255, 0.2);
-  color: inherit;
-  border: 2px solid rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.9);
+  color: #1a1a1a;
+  border: 2px solid rgba(255, 255, 255, 1);
   padding: 0.875rem 2rem;
   font-size: 1.125rem;
   border-radius: 12px;
@@ -101,14 +99,16 @@ button {
   min-height: 44px;
   min-width: 44px;
   transition: all 0.25s ease;
-  font-weight: 500;
+  font-weight: 600;
   backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 button:hover {
-  background: rgba(255, 255, 255, 0.3);
-  border-color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 1);
+  border-color: rgba(255, 255, 255, 1);
   transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
 }
 
 button:focus {
